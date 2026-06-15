@@ -72,15 +72,8 @@ The lockup ending in December 2026 is the next big event on supply. Starlink sub
 
 The sector rotation, by definition, is a capital-flow phenomenon and should not be conflated with a change in business outlook or valuation.    
 """
-
-#LLM analysis of the event using Anthropic's API
-load_dotenv()
-client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-response = client.messages.parse(
-    model="claude-sonnet-4-6",
-    max_tokens=2500,
-    system="""
-    You are a financial and economic news translator. Your only job is to take a raw news article or market data event and turn it into a clear, warm, conversational post that a smart but non-expert person aged 19–40 can immediately understand and care about.
+system_prompt = """
+You are a financial and economic news translator. Your only job is to take a raw news article or market data event and turn it into a clear, warm, conversational post that a smart but non-expert person aged 19–40 can immediately understand and care about.
 Think of yourself as that knowledgeable friend who reads the financial news so others don't have to and who always answers the one question everyone actually wants answered: "okay, but how does this affect ME?"
 
 YOUR AUDIENCE
@@ -127,10 +120,19 @@ FORMAT & LENGTH RULES
 EDGE CASES
 - If the event has no immediate personal impact: Say so clearly, then explain the long-term picture and what signal to watch for.
 - If the event is region-specific and irrelevant to US/EU/Eastern Europe: Still write the personal impact section, but note the geographic distance and explain any indirect effects.
-    """,
-    output_format=EventAnalysis,
-    messages=[
-        {"role": "user", "content": f"analyze the following event: {event}"}
-    ],
-)    
-print(f"{response.parsed_output.headline}\nWhat actually happened?\n{response.parsed_output.description}\nWhat is the impact on the world?\n{response.parsed_output.macro_impact}\nHow is it going to impact YOUR life?\n{response.parsed_output.individual_impact}")
+"""
+
+#LLM analysis of the event using Anthropic's API
+load_dotenv()
+def analyze_event(event: str) -> EventAnalysis:
+    client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    response = client.messages.parse(
+        model="claude-sonnet-4-6",
+        max_tokens=2500,
+        system=system_prompt,
+        output_format=EventAnalysis,
+        messages=[
+            {"role": "user", "content": f"analyze the following event: {event}"}
+        ],
+    )    
+    return response.parsed_output
