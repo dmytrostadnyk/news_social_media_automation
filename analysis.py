@@ -4,12 +4,14 @@ from pydantic import BaseModel
 from anthropic import Anthropic
 from dotenv import load_dotenv
 
-#Pydantic model for the output of the analysis
+
+# Pydantic model for the output of the analysis
 class EventAnalysis(BaseModel):
     headline: str
     description: str
     macro_impact: str
     individual_impact: str
+
 
 event = """
 TradingKey - SpaceX (NASDAQ: SPCX) closed Day One at $161.11, a 19% increase from its $135 IPO price, following an intraday trade that saw prices swing as high as $176.52 and as low as $150. The result was exactly what was expected from an IPO that was oversubscribed by a factor of 2x and had a tight 4% float. Day One saw significant volume. Nasdaq President Adena Friedman and SpaceX President Gwynne Shotwell rang the opening bell at the Nasdaq MarketSite, surrounded by a large number of people. 
@@ -122,8 +124,10 @@ EDGE CASES
 - If the event is region-specific and irrelevant to US/EU/Eastern Europe: Still write the personal impact section, but note the geographic distance and explain any indirect effects.
 """
 
-#LLM analysis of the event using Anthropic's API
+# LLM analysis of the event using Anthropic's API
 load_dotenv()
+
+
 def analyze_event(event: str) -> EventAnalysis:
     client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
     response = client.messages.parse(
@@ -131,8 +135,6 @@ def analyze_event(event: str) -> EventAnalysis:
         max_tokens=2500,
         system=system_prompt,
         output_format=EventAnalysis,
-        messages=[
-            {"role": "user", "content": f"analyze the following event: {event}"}
-        ],
-    )    
+        messages=[{"role": "user", "content": f"analyze the following event: {event}"}],
+    )
     return response.parsed_output
