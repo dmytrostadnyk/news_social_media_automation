@@ -15,8 +15,11 @@ class EventAnalysis(BaseModel):
     def to_text(self) -> str:
         combined_output = f"{self.headline}\nWhat actually happened?\n{self.description}\nWhat is the impact on the world?\n{self.macro_impact}\nHow is it going to impact YOUR life?\n{self.individual_impact}"
         if len(combined_output) > config.OUTPUT_CHARACTER_LIMIT:
-            raise ValueError(f"Combined output exceeds {config.OUTPUT_CHARACTER_LIMIT} characters.\nProduced output length: {len(combined_output)} characters.")
+            raise ValueError(
+                f"Combined output exceeds {config.OUTPUT_CHARACTER_LIMIT} characters.\nProduced output length: {len(combined_output)} characters."
+            )
         return combined_output
+
 
 event = """
 TradingKey - SpaceX (NASDAQ: SPCX) closed Day One at $161.11, a 19% increase from its $135 IPO price, following an intraday trade that saw prices swing as high as $176.52 and as low as $150. The result was exactly what was expected from an IPO that was oversubscribed by a factor of 2x and had a tight 4% float. Day One saw significant volume. Nasdaq President Adena Friedman and SpaceX President Gwynne Shotwell rang the opening bell at the Nasdaq MarketSite, surrounded by a large number of people. 
@@ -133,7 +136,7 @@ EDGE CASES
 load_dotenv()
 
 def analyze_event(event: str) -> EventAnalysis:
-    client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     response = client.messages.parse(
         model="claude-sonnet-4-6",
         max_tokens=2500,
