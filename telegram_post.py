@@ -1,6 +1,7 @@
 import os
 import requests
 
+
 # Posting a message to a Telegram channel using the Telegram Bot API
 def post_to_telegram(text: str) -> None:
     bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
