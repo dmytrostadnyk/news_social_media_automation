@@ -34,7 +34,7 @@ Like Indonesia, India’s central bank may hike rates to defend its currency I
 Coca-Cola explores listing of its India bottling unit in 2027 The U.S.-based multinational on Monday said that preparations are underway to list its Indian bottling unit, Hindustan Coca-Cola Holdings, on the Bombay Stock Exchange and National Stock Exchange of India, in 2027.
 """
     # analyze the event and post the formatted text to Telegram
-    # raw object means that the analyze_event does not return a formatted string, it returns an EventAnalysis object that contains the analysis results. 
+    # raw object means that the analyze_event does not return a formatted string, it returns an EventAnalysis object that contains the analysis results.
     raw_object = analysis.analyze_event(event)
     formatted_text = raw_object.to_text()
     telegram_post.post_to_telegram(formatted_text)

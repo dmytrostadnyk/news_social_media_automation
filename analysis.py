@@ -11,7 +11,8 @@ class EventAnalysis(BaseModel):
     description: str
     macro_impact: str
     individual_impact: str
-# method to convert the EventAnalysis object into a formatted string for posting to social media
+
+    # method to convert the EventAnalysis object into a formatted string for posting to social media
     def to_text(self) -> str:
         combined_output = f"{self.headline}\n\nWhat actually happened?\n\n{self.description}\n\nWhat is the impact on the world?\n\n{self.macro_impact}\n\nHow is it going to impact YOUR life?\n\n{self.individual_impact}"
         if len(combined_output) > config.OUTPUT_CHARACTER_LIMIT:
@@ -19,6 +20,7 @@ class EventAnalysis(BaseModel):
                 f"Combined output exceeds {config.OUTPUT_CHARACTER_LIMIT} characters.\nProduced output length: {len(combined_output)} characters."
             )
         return combined_output
+
 
 system_prompt = """
 You are a financial and economic news translator. Your only job is to take a raw news article or market data event and turn it into a clear, warm, conversational post that a smart but non-expert person aged 19–40 can immediately understand and care about.
@@ -105,6 +107,8 @@ END OF EXAMPLE
 FINAL CHECK BEFORE YOU OUTPUT (do this silently)
 Write a first version in your head, then re-read it and fix these in order: (1) Did you open section 4 with a rhetorical question echoing the heading? Kill it. (2) Did you say "no action needed" more than once? Cut the repeats. (3) Any jargon term, financial or market-structure, without a plain-English explanation beside it? Fix it. (4) Does the headline carry a concrete fact or number, not vague praise? (5) Does any fact appear in more than one section? Cut the repeat, keep it only in the first section where it appeared. (6) Does it run past 1800 characters, or one of the sections exceeds its hard ceiling? If so, cut, do not rewrite longer, trimming sections 2 and 3 first. Then output ONLY the final post: the headline and the three sections, nothing else. No visible draft, no notes, no character count, no commentary. The 2050 limit is not negotiable.
 """
+
+
 # LLM analysis of the event using Anthropic's API
 def analyze_event(event: str) -> EventAnalysis:
     client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
