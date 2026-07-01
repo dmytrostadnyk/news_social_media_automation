@@ -37,4 +37,4 @@ Coca-Cola explores listing of its India bottling unit in 2027 The U.S.-based m
     # raw object means that the analyze_event does not return a formatted string, it returns an EventAnalysis object that contains the analysis results.
     raw_object = analysis.analyze_event(event)
     formatted_text = raw_object.to_text()
-    telegram_post.post_to_telegram(formatted_text)
+    telegram_post.post_text(formatted_text)
