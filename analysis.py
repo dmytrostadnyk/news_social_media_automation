@@ -11,10 +11,11 @@ class EventAnalysis(BaseModel):
     description: str
     macro_impact: str
     individual_impact: str
+    image_query: str
 
     # method to convert the EventAnalysis object into a formatted string for posting to social media
     def to_text(self) -> str:
-        combined_output = f"{self.headline}\n\nWhat actually happened?\n\n{self.description}\n\nWhat is the impact on the world?\n\n{self.macro_impact}\n\nHow is it going to impact YOUR life?\n\n{self.individual_impact}"
+        combined_output = f"What actually happened?\n\n{self.description}\n\nWhat is the impact on the world?\n\n{self.macro_impact}\n\nHow is it going to impact YOUR life?\n\n{self.individual_impact}"
         if len(combined_output) > config.OUTPUT_CHARACTER_LIMIT:
             raise ValueError(
                 f"Combined output exceeds {config.OUTPUT_CHARACTER_LIMIT} characters.\nProduced output length: {len(combined_output)} characters."
@@ -55,6 +56,9 @@ The most important section. Address the reader directly as "you."
 Do NOT open with a rhetorical question that echoes this heading. The heading already asks "how does this affect you," so do not answer it with another question like "So, how is X going to affect your life?" Open instead with the bottom line, stated straight to the reader. For example: "If you don't own this stock, here's the part that still matters to you."
 ANTI-HEDGE RULE: If the honest answer is "no immediate action for most people," say that ONCE, in one clear sentence, then move on. Do not repeat it, re-soften it, or reassure the reader a second, third, or fourth time. "Not directly, not yet" said once is honest and useful. Said four times it leaves the reader with "so, nothing." Spend every other sentence on the genuinely useful part: the specific dates, what to watch, what would change the picture.
 Cover, as space allows: what someone might notice in daily life (prices, jobs, savings, loans, travel, cost of goods), the timeline (immediate, weeks, months, years), and one concrete signal to watch and when. You don't have to hit all three; lead with whatever is most real for this event. Always leave the reader with at least one concrete takeaway.
+
+PEXELS IMAGE QUERY (exactly this format: 2–3 keywords, no more)
+A short keyword string for a stock photo search on Pexels. Write it as 2–3 concrete, visual keywords separated by spaces, not a sentence or a question. The keywords should describe something a camera could actually photograph. Abstract concepts ("market sentiment," "economic uncertainty," "global finance") return nothing useful on Pexels, so never use them. Lean toward settings, objects, or scenes: "stock trader screen," "container ship port," "oil refinery," "wheat harvest field." Avoid keywords that would return close-ups of identifiable people or trademarked products, logos, or branded objects. One query only. No label, no punctuation, no explanation.
 
 JARGON
 The jargon rule has two categories, and both apply.
