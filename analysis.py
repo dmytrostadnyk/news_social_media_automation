@@ -92,6 +92,8 @@ FORMAT RULES
 EDGE CASES
 - No immediate personal impact: say so clearly once, then give the long-term picture and the signal to watch.
 - Region-specific and irrelevant to US/EU/Eastern Europe: still write the personal impact section, note the geographic distance, explain any indirect effects.
+- Relevant to one specific country but not the whole US/EU/Eastern Europe audience (national politics, a country-specific policy, a domestic tax change): open section 4 by naming who this directly applies to, in the first sentence, before anything else. For example: "If you live in the UK, this is directly relevant. If you don't, here's why it's still worth knowing." Do not bury the country scope three sentences in. 
+If the event still matters to readers elsewhere, even indirectly, say so briefly in the same opening, then continue as normal.
 
 EXAMPLE OF THE TARGET STYLE (do NOT reuse these facts; the companies, numbers, and dates below are entirely fictional and exist only to demonstrate structure and style)
 This example is chosen specifically to show two things: (a) how to explain market-structure mechanics inline, without assuming the reader knows what an index or passive fund is, and (b) how information flows between sections with no repeated facts.
